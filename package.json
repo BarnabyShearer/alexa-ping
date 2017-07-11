@@ -1,0 +1,26 @@
+{
+  "name": "alexa-ping",
+  "version": "1.0.0",
+  "description": "Amazon Alexa skill to ping a domain",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BarnabyShearer/alexa-ping.git"
+  },
+  "keywords": [
+    "Alexa",
+    "skill"
+  ],
+  "author": "Barnaby Shearer <b@zi.is>",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/BarnabyShearer/alexa-ping/issues"
+  },
+  "homepage": "https://github.com/BarnabyShearer/alexa-ping#readme",
+  "dependencies": {
+    "alexa-sdk": "^1.0.11"
+  }
+}
