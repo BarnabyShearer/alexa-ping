@@ -5,7 +5,7 @@ var http = require('http')
 
 exports.handler =  function handler(event, context, callback){
     var alexa = Alexa.handler(event, context, callback);
-    //alexa.APP_ID = 'TODO';
+    alexa.APP_ID = 'amzn1.ask.skill.b7dff73d-46e8-4646-941e-bcf41c728280';
     alexa.registerHandlers({
         'LaunchRequest': function () {
             this.emit('PingIntent');
@@ -14,12 +14,12 @@ exports.handler =  function handler(event, context, callback){
             const start = new Date();
             const req = http.request(
                 {
-                    hostname: this.event.request.intent.slots.website,
+                    hostname: this.event.request.intent.slots.website.value,
                     method: 'HEAD'
                 },
                 (res) => {
                     const time = new Date() - start;
-                    this.emit(':tellWithCard', `${res.statusMessage} ${time}`, 'PONG', `${res.statusMessage}: ${time}`);
+                    this.emit(':tellWithCard', `${res.statusMessage} ${time} milliseconds`, 'PONG', `${res.statusMessage}: ${time}ms`);
                 }
             )
             req.on('error', (e) => {

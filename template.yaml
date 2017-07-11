@@ -37,7 +37,7 @@ Resources:
       Properties:
         Handler: index.handler
         Runtime: nodejs6.10
-        CodeUri: index.js
+        CodeUri: .
         Role: !GetAtt PingServiceIAMRole.Arn
         Events:
             AlexaSkillEvent:
