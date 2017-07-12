@@ -8,13 +8,13 @@ exports.handler =  function handler(event, context, callback){
     alexa.APP_ID = 'amzn1.ask.skill.b7dff73d-46e8-4646-941e-bcf41c728280';
     alexa.registerHandlers({
         'LaunchRequest': function () {
-            this.emit('PingIntent');
+            this.emit('AMAZON.HelpIntent');
         },
         'PingIntent': function() {
             const start = new Date();
             const req = http.request(
                 {
-                    hostname: this.event.request.intent.slots.website.value,
+                    hostname: this.event.request.intent.slots.website.value.replace(/^for /i, '').replace(" dot ", ".").replace(" ", ""),
                     method: 'HEAD'
                 },
                 (res) => {
