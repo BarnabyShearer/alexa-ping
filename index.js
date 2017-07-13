@@ -11,19 +11,24 @@ exports.handler =  function handler(event, context, callback){
             this.emit('AMAZON.HelpIntent');
         },
         'PingIntent': function() {
+            const site = this.event.request.intent.slots.website.value.replace(/^for /i, '').replace(" dot ", ".").replace(" ", "");
             const start = new Date();
             const req = http.request(
                 {
-                    hostname: this.event.request.intent.slots.website.value.replace(/^for /i, '').replace(" dot ", ".").replace(" ", ""),
+                    hostname: site,
                     method: 'HEAD'
                 },
                 (res) => {
                     const time = new Date() - start;
-                    this.emit(':tellWithCard', `${res.statusMessage} ${time} milliseconds`, 'PONG', `${res.statusMessage}: ${time}ms`);
+                    this.emit(':tellWithCard', `${res.statusMessage} ${time} milliseconds`, 'PONG', `☺ ${res.statusMessage}: ${time}ms ☺`);
                 }
             )
             req.on('error', (e) => {
-                this.emit(':tellWithCard', `Error: ${e.message}`, 'PONG', `Error: ${e.message}`);
+                if(e.errno == 'ENOTFOUND') {
+                     this.emit(':tellWithCard', `${site} not found`, 'PONG', `😕 ${site} not found 😕`);
+                } else {
+                    this.emit(':tellWithCard', `${e.message}`, 'PONG', `☹ ${e.message} ☹`);
+                }
             })
             req.end();
         },
@@ -35,6 +40,12 @@ exports.handler =  function handler(event, context, callback){
         },
         'AMAZON.StopIntent': function () {
             this.emit(':tell', 'Bye!');
+        },
+        'Unhandled': function() {
+            this.emit(':ask', 'Sorry, I didn\'t get that. Try saying a website name.', 'Try saying a website name.');
+        },
+        'SessionEndedRequest': function() {
+            context.succeed();
         }
     });
     alexa.execute();
