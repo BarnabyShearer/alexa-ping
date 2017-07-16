@@ -11,7 +11,7 @@ exports.handler =  function handler(event, context, callback){
             this.emit('AMAZON.HelpIntent');
         },
         'PingIntent': function() {
-            const site = this.event.request.intent.slots.website.value.replace(/^for /i, '').replace(" dot ", ".").replace(" ", "");
+            const site = this.event.request.intent.slots.website.value.replace(/^for /i, '').replace(/\sdot\s/gi, ".").replace(/\s/g, "");
             const start = new Date();
             const req = http.request(
                 {
