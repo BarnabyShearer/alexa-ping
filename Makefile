@@ -1,6 +1,9 @@
 STACK=alexa-ping
 BUCKET=alexa-ping-code
 
+test:
+	npm test
+
 .PHONY: deploy
 deploy: packaged-template.yaml
 	aws --profile ziis cloudformation deploy --region eu-west-1 --template-file packaged-template.yaml --stack-name $(STACK) --capabilities CAPABILITY_IAM

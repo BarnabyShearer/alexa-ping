@@ -4,7 +4,9 @@
   "description": "Amazon Alexa skill to ping a domain",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pretest": "jshint index.js",
+    "test": "mocha",
+    "posttest": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,14 @@
   },
   "homepage": "https://github.com/BarnabyShearer/alexa-ping#readme",
   "dependencies": {
-    "alexa-sdk": "^1.0.11"
+    "alexa-sdk": "^1.0.18"
+  },
+  "devDependencies": {
+    "alexa-skill-test-framework": "^1.1.2",
+    "jshint": "^2.9.5",
+    "mocha": "^3.5.3"
+  },
+  "jshintConfig": {
+    "esversion": 6
   }
 }

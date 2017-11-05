@@ -1,11 +1,12 @@
+(function () {
 'use strict';
 
 var Alexa = require('alexa-sdk');
-var http = require('http')
+var http = require('http');
 
 exports.handler =  function handler(event, context, callback){
     var alexa = Alexa.handler(event, context, callback);
-    alexa.APP_ID = 'amzn1.ask.skill.b7dff73d-46e8-4646-941e-bcf41c728280';
+    alexa.appId = 'amzn1.ask.skill.b7dff73d-46e8-4646-941e-bcf41c728280';
     alexa.registerHandlers({
         'LaunchRequest': function () {
             this.emit('AMAZON.HelpIntent');
@@ -22,14 +23,14 @@ exports.handler =  function handler(event, context, callback){
                     const time = new Date() - start;
                     this.emit(':tellWithCard', `${res.statusMessage} ${time} milliseconds`, 'PONG', `☺ ${res.statusMessage}: ${time}ms ☺`);
                 }
-            )
+            );
             req.on('error', (e) => {
                 if(e.errno == 'ENOTFOUND') {
                      this.emit(':tellWithCard', `${site} not found`, 'PONG', `😕 ${site} not found 😕`);
                 } else {
                     this.emit(':tellWithCard', `${e.message}`, 'PONG', `☹ ${e.message} ☹`);
                 }
-            })
+            });
             req.end();
         },
         'AMAZON.HelpIntent': function () {
@@ -50,3 +51,5 @@ exports.handler =  function handler(event, context, callback){
     });
     alexa.execute();
 };
+
+}());
